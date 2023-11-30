@@ -1,0 +1,14 @@
+           // .merge(with: dataService.passThroughPublisher3)
+           // .zip(dataService.passThroughPublisher3)
+            .tryCatch { error in
+                guard let error = error as? URLError,
+                      error.code == .badServerResponse else {
+                    throw error
+                }
+                return self.dataService.passThroughPublisher3
+            }
+            .replaceNil(with: 100)
+            .map { String($0) }
+
+           // .collect()
+            //.collect(3)
